@@ -745,7 +745,7 @@
             container.innerHTML = html; document.getElementById('cartSubtotal').innerText = sub; const deliveryFee = getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText = deliveryFee; let finalCash = sub; 
             const deductionDiv = document.getElementById('balanceDeductionInfo');
             
-            deductionDiv.innerHTML = `<i class="fas fa-wallet gold-deduction-text"></i> <span class="gold-deduction-text">سيتم خصم رسوم التوصيل (${deliveryFee} أوقية) من رصيدك بعد تأكيد التوصيل /span>`;
+            deductionDiv.innerHTML = `<i class="fas fa-wallet gold-deduction-text"></i> <span class="gold-deduction-text">سيتم خصم رسوم التوصيل (${deliveryFee} أوقية) من رصيدك بعد تأكيد التوصيل </span>`;
             deductionDiv.classList.remove('hidden');
             document.getElementById('insufficientBalanceWarning').classList.add('hidden');
             document.getElementById('cartTotal').innerText = finalCash;
