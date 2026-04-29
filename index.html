@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>مجمع المدينة - متجر ذكي</title>
+    <title>مجمع المدينة</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a0a">
     <link rel="apple-touch-icon" href="icon.png">
@@ -414,10 +414,14 @@
         }
         .location-toggle-btn.active { background: #15803d; color: white; border-color: #22c55e; }
         .insufficient-warning { color: #ef4444; font-size: 0.75rem; margin-top: 8px; text-align: center; }
-        /* Logo image styling */
         .brand-logo-img {
             object-fit: cover;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .gold-deduction-text {
+            color: #fbbf24 !important;
+            font-weight: 800;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
     </style>
 </head>
@@ -425,7 +429,6 @@
 <div class="loading-screen" id="loadingScreen"><div class="spinner"></div><p class="text-amber-500 font-bold">جاري التحميل...</p></div>
 <div class="login-screen" id="loginScreen">
     <div class="login-card">
-        <!-- REPLACED default gradient icon with actual icon.png logo -->
         <div class="mx-auto mb-4 shadow-lg w-24 h-24 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-900/30 to-amber-700/10 p-1">
             <img src="icon.png" alt="مجمع المدينة" class="w-full h-full object-cover rounded-2xl brand-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/96x96?text=Logo';">
         </div>
@@ -457,7 +460,6 @@
 <div class="main-app" id="mainApp">
     <header class="glass-premium sticky top-0 z-30 p-3 flex justify-between items-center px-4">
         <div class="flex items-center gap-2">
-            <!-- REPLACED default gradient store icon with icon.png for brand logo -->
             <img src="icon.png" alt="شعار مجمع المدينة" class="w-9 h-9 rounded-xl object-cover shadow-md border border-amber-500/30 brand-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/36x36?text=Store';">
             <span class="font-black text-transparent bg-clip-text bg-gradient-to-l from-amber-400 to-amber-600 text-lg">مجمع <span class="text-amber-500">المدينة</span></span>
         </div>
@@ -474,8 +476,8 @@
         <div class="border-t border-amber-500/20 p-4 bg-[#0b0f14] flex-shrink-0">
             <div class="flex justify-between text-gray-300"><span class="font-bold">المجموع:</span><span id="cartSubtotal" class="font-bold text-amber-500">0</span> أوقية</div>
             <div class="flex justify-between text-gray-400 mt-1"><span><i class="fas fa-motorcycle"></i> التوصيل:</span><span id="deliveryFeeSpan">0</span> أوقية</div>
-            <div id="balanceDeductionInfo" class="text-xs text-green-500 mt-1 hidden"></div>
-            <div class="flex justify-between text-gray-300 text-xl mt-2 pt-2 border-t border-amber-500/30"><span class="font-bold">الإجمالي (نقداً):</span><span id="cartTotal" class="font-bold text-amber-500 text-xl">0</span> أوقية</div>
+            <div id="balanceDeductionInfo" class="mt-1 text-xs hidden gold-deduction-text"><i class="fas fa-wallet gold-deduction-text"></i> <span></span></div>
+            <div class="flex justify-between text-gray-300 text-xl mt-2 pt-2 border-t border-amber-500/30"><span class="font-bold">الإجمالي:</span><span id="cartTotal" class="font-bold text-amber-500 text-xl">0</span> أوقية</div>
             <div id="insufficientBalanceWarning" class="insufficient-warning hidden text-center mt-2"><i class="fas fa-exclamation-triangle"></i> رصيدك لا يكفي لتغطية رسوم التوصيل</div>
             <div class="mt-3 flex justify-center"><div class="cash-badge"><i class="fas fa-hand-holding-usd"></i> الدفع عند استلام الطلب</div></div>
             <button id="sendWhatsAppBtn" class="w-full bg-green-600 text-white py-2.5 rounded-xl mt-4 flex justify-center gap-2 items-center font-bold"><i class="fab fa-whatsapp"></i> إرسال الطلب</button>
@@ -740,7 +742,13 @@
             if(!cart.length) { container.innerHTML = '<div class="text-center text-gray-500 py-10"><i class="fas fa-shopping-bag text-4xl mb-2 opacity-40"></i><br>لمخلة خاوية</div>'; document.getElementById('cartSubtotal').innerText = '0'; const fee = getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText = fee; document.getElementById('cartTotal').innerText = fee; document.getElementById('balanceDeductionInfo').classList.add('hidden'); document.getElementById('insufficientBalanceWarning').classList.add('hidden'); return; }
             let sub = 0, html = '';
             cart.forEach((item, idx) => { let total = item.price * item.qty; sub += total; const variantLabel = formatVariantLabel(item.status, item.type); html += `<div class="bg-[#0e1219] rounded-xl p-3 border border-amber-500/10"><div class="flex justify-between items-center flex-wrap gap-2"><div><p class="font-bold text-white text-sm">${escapeHtml(item.name)}</p><p class="text-xs text-amber-500">${variantLabel}</p><p class="text-xs text-gray-400">${item.price} × ${item.qty}</p></div><div class="font-bold text-amber-500 text-sm">${total} أوقية</div><div class="flex gap-1"><button class="cart-inc w-7 h-7 rounded-full bg-gray-800 text-amber-500" data-idx="${idx}">+</button><span class="w-5 text-center text-white font-bold">${item.qty}</span><button class="cart-dec w-7 h-7 rounded-full bg-gray-800 text-amber-500" data-idx="${idx}">-</button><button class="cart-remove text-red-500 px-1" data-idx="${idx}"><i class="fas fa-trash"></i></button></div></div></div>`; });
-            container.innerHTML = html; document.getElementById('cartSubtotal').innerText = sub; const deliveryFee = getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText = deliveryFee; let finalCash = sub; const canDeduct = currentCustomer && currentCustomer.balance >= deliveryFee; if(canDeduct) { finalCash = sub; document.getElementById('balanceDeductionInfo').innerHTML = `<i class="fas fa-wallet"></i> سيتم خصم ${deliveryFee} أوقية من رصيدك (الرصيد الحالي: ${currentCustomer.balance})`; document.getElementById('balanceDeductionInfo').classList.remove('hidden'); document.getElementById('insufficientBalanceWarning').classList.add('hidden'); } else { document.getElementById('balanceDeductionInfo').classList.add('hidden'); document.getElementById('insufficientBalanceWarning').classList.remove('hidden'); } document.getElementById('cartTotal').innerText = finalCash;
+            container.innerHTML = html; document.getElementById('cartSubtotal').innerText = sub; const deliveryFee = getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText = deliveryFee; let finalCash = sub; 
+            const deductionDiv = document.getElementById('balanceDeductionInfo');
+            
+            deductionDiv.innerHTML = `<i class="fas fa-wallet gold-deduction-text"></i> <span class="gold-deduction-text">سيتم خصم رسوم التوصيل (${deliveryFee} أوقية) من رصيدك بعد تأكيد التوصيل /span>`;
+            deductionDiv.classList.remove('hidden');
+            document.getElementById('insufficientBalanceWarning').classList.add('hidden');
+            document.getElementById('cartTotal').innerText = finalCash;
             document.querySelectorAll('.cart-inc, .cart-dec, .cart-remove').forEach(btn => { btn.onclick = () => { let i = parseInt(btn.dataset.idx); if(btn.classList.contains('cart-inc')) { let variantData = variants.find(v => v.id === cart[i].variantId); if(variantData && cart[i].qty < variantData.stock) { cart[i].qty++; updateCartUI(); renderCartModal(); } else showToast("الكمية القصوى", true); } else if(btn.classList.contains('cart-dec')) { if(cart[i].qty > 1) { cart[i].qty--; updateCartUI(); renderCartModal(); } else { cart.splice(i,1); updateCartUI(); renderCartModal(); } } else { cart.splice(i,1); updateCartUI(); renderCartModal(); } }; });
         }
         
@@ -756,24 +764,28 @@
             if(!userLocation) { showToast("لا يمكن إرسال الطلب بدون تحديد الموقع.", true); return; }
             const subtotal = cart.reduce((s,i) => s + (i.price * i.qty), 0);
             const deliveryFee = getDeliveryFee();
-            if(currentCustomer.balance < deliveryFee) { showToast("رصيدك لا يكفي لتغطية رسوم التوصيل،", true); return; }
-            let deducted = deliveryFee;
-            let finalCash = subtotal;
+            
             const orderDetails = cart.map(item => ({ variant_id: item.variantId, name: item.name, status: item.status, type: item.type, quantity: item.qty, price: item.price }));
-            const { data: order, error: orderError } = await supabase.from('orders').insert([{ customer_id: currentCustomer.id, total_amount: subtotal, delivery_fee: deliveryFee, final_amount: finalCash, paid_from_balance: deducted, order_details: orderDetails, status: 'pending', location_link: getLocationLink() }]).select().single();
+            const { data: order, error: orderError } = await supabase.from('orders').insert([{ 
+                customer_id: currentCustomer.id, 
+                total_amount: subtotal, 
+                delivery_fee: deliveryFee, 
+                final_amount: subtotal,   
+                paid_from_balance: 0,     
+                order_details: orderDetails, 
+                status: 'pending', 
+                location_link: getLocationLink(),
+                delivery_fee_deducted: false   
+            }]).select().single();
             if(orderError) { showToast("فشل حفظ الطلب", true); return; }
-            const newBalance = currentCustomer.balance - deducted;
-            await supabase.from('customers').update({ balance: newBalance }).eq('id', currentCustomer.id);
-            currentCustomer.balance = newBalance;
-            await supabase.from('customer_transactions').insert({ customer_id: currentCustomer.id, amount: -deducted, description: `خصم توصيل - طلب #${order.id.slice(0,8)}` });
-            updateCustomerUI();
+           
+            
+          
             let msg = `🛒 *طلب جديد - مجمع المدينة*\n*رقم الطلب:* ${order.id.slice(0,8)}\n\n`;
             cart.forEach(i => { let total = i.price * i.qty; const variantLabel = formatVariantLabel(i.status, i.type); msg += `• ${i.name} ${variantLabel} × ${i.qty} = ${total} أوقية\n`; });
             msg += `●المجموع: ${subtotal} أوقية\n`;
-            msg += `●التوصيل: ${deliveryFee} أوقية (تم خصمها من الرصيد)*\n`;
-            msg += `●الإجمالي: ${finalCash} أوقية\n`;
             msg += `📍 *موقع التوصيل:* ${getLocationLink()}\n`;
-            msg += `*الدفع عند استلام الطلب*\n`;
+            msg += `*الدفع عند استلام الطلب*)\n`;
             const encodedMsg = encodeURIComponent(msg);
             const phoneNumber = appSettings.whatsapp_number.replace(/[^0-9+]/g, '');
             window.open(`https://wa.me/${phoneNumber}?text=${encodedMsg}`, '_blank');
@@ -814,7 +826,7 @@
                 const phone = document.getElementById('loginPhone').value.trim(); 
                 const code = getPinCode(); 
                 if(!phone || code.length !== 4) { 
-                    showToast("أدخل رقم الهاتف والكود المكون من 4 أرقام", true); 
+                    showToast("أدخل رقم الهاتف و الرمز السري ", true); 
                     clearPins(); 
                     return; 
                 } 
