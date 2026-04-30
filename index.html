@@ -89,12 +89,32 @@
         .brand-logo-img { object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         .gold-deduction-text { color: #fbbf24 !important; font-weight: 800; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
         .send-btn-disabled { opacity: 0.5; pointer-events: none; filter: grayscale(0.1); }
+        .offline-warning { background: #dc2626; color: white; text-align: center; padding: 8px; font-size: 0.8rem; position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; }
     </style>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen"><div class="spinner"></div><p class="text-amber-500 font-bold">جاري التحميل...</p></div>
-<div class="login-screen" id="loginScreen"><div class="login-card"><div class="mx-auto mb-4 shadow-lg w-24 h-24 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-900/30 to-amber-700/10 p-1"><img src="icon.png" alt="مجمع المدينة" class="w-full h-full object-cover rounded-2xl brand-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/96x96?text=Logo';"></div><h1>مجمع المدينة</h1><p class="text-gray-400 mb-6">نعرفك مغدج عن تكيس لبوتيك,ادخل التطبيق, كوماندي, يجيك كوماندك عند دارك</p><div class="phone-wrapper"><i class="fas fa-phone-alt phone-icon"></i><input type="tel" id="loginPhone" placeholder="رقم الهاتف" maxlength="8" class="login-input-phone" autocomplete="off"></div><div class="pin-container" id="pinContainer"><input type="password" maxlength="1" class="pin-digit" id="pin1" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="pin2" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="pin3" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="pin4" inputmode="numeric" pattern="\d*"></div><div id="confirmPinGroup" class="confirm-pin-group"><div class="confirm-label"><i class="fas fa-check-circle"></i> تأكيد الرمز السري</div><div class="pin-container" id="confirmPinContainer"><input type="password" maxlength="1" class="pin-digit" id="cpin1" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="cpin2" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="cpin3" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="cpin4" inputmode="numeric" pattern="\d*"></div></div><button id="loginActionBtn" class="login-btn">تسجيل الدخول</button><div class="switch-mode" id="switchModeBtn">ليس لديك حساب؟ إنشاء حساب جديد</div></div></div>
-<div class="main-app" id="mainApp"><header class="glass-premium sticky top-0 z-30 p-3 flex justify-between items-center px-4"><div class="flex items-center gap-2"><img src="icon.png" alt="شعار مجمع المدينة" class="w-9 h-9 rounded-xl object-cover shadow-md border border-amber-500/30 brand-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/36x36?text=Store';"><span class="font-black text-transparent bg-clip-text bg-gradient-to-l from-amber-400 to-amber-600 text-lg">مجمع <span class="text-amber-500">المدينة</span></span></div><div class="flex items-center gap-2"><div id="balanceDisplay" class="balance-badge"><i class="fas fa-coins"></i> <span id="balanceAmount">0</span> أوقية</div><div id="logoutMainBtn" class="logout-main-btn"><i class="fas fa-sign-out-alt"></i> خروج</div><button id="installBtn" class="install-btn" style="display: none;"><i class="fas fa-download"></i> تثبيت</button><button id="cartBtn" class="relative bg-gray-800/80 p-2 rounded-xl border border-amber-500/20"><i class="fas fa-shopping-bag text-amber-500"></i><span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-amber-600 to-amber-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-black">0</span></button></div></header><div class="nav-sections" id="navSections"></div><main class="container mx-auto px-2 py-3" id="mainContent"></main></div>
+<div class="login-screen" id="loginScreen">
+    <div class="login-card">
+        <div class="mx-auto mb-4 shadow-lg w-24 h-24 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-900/30 to-amber-700/10 p-1"><img src="icon.png" alt="مجمع المدينة" class="w-full h-full object-cover rounded-2xl brand-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/96x96?text=Logo';"></div>
+        <h1>مجمع المدينة</h1>
+        <p class="text-gray-400 mb-6">نعرفك مغدج عن تكيس لبوتيك,ادخل التطبيق, كوماندي, يجيك كوماندك عند دارك</p>
+        <div class="phone-wrapper"><i class="fas fa-phone-alt phone-icon"></i><input type="tel" id="loginPhone" placeholder="رقم الهاتف" maxlength="8" class="login-input-phone" autocomplete="off"></div>
+        <div class="pin-container" id="pinContainer"><input type="password" maxlength="1" class="pin-digit" id="pin1" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="pin2" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="pin3" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="pin4" inputmode="numeric" pattern="\d*"></div>
+        <div id="confirmPinGroup" class="confirm-pin-group"><div class="confirm-label"><i class="fas fa-check-circle"></i> تأكيد الرمز السري</div><div class="pin-container" id="confirmPinContainer"><input type="password" maxlength="1" class="pin-digit" id="cpin1" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="cpin2" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="cpin3" inputmode="numeric" pattern="\d*"><input type="password" maxlength="1" class="pin-digit" id="cpin4" inputmode="numeric" pattern="\d*"></div></div>
+        <button id="loginActionBtn" class="login-btn">تسجيل الدخول</button>
+        <div class="switch-mode" id="switchModeBtn">ليس لديك حساب؟ إنشاء حساب جديد</div>
+        <div id="offlineLoginMsg" style="display:none; color:#ef4444; margin-top:15px; font-size:0.8rem;"><i class="fas fa-wifi-slash"></i> لا يوجد اتصال بالإنترنت. لا يمكن تسجيل الدخول.</div>
+    </div>
+</div>
+<div class="main-app" id="mainApp">
+    <header class="glass-premium sticky top-0 z-30 p-3 flex justify-between items-center px-4">
+        <div class="flex items-center gap-2"><img src="icon.png" alt="شعار مجمع المدينة" class="w-9 h-9 rounded-xl object-cover shadow-md border border-amber-500/30 brand-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/36x36?text=Store';"><span class="font-black text-transparent bg-clip-text bg-gradient-to-l from-amber-400 to-amber-600 text-lg">مجمع <span class="text-amber-500">المدينة</span></span></div>
+        <div class="flex items-center gap-2"><div id="balanceDisplay" class="balance-badge"><i class="fas fa-coins"></i> <span id="balanceAmount">0</span> أوقية</div><div id="logoutMainBtn" class="logout-main-btn"><i class="fas fa-sign-out-alt"></i> خروج</div><button id="installBtn" class="install-btn" style="display: none;"><i class="fas fa-download"></i> تثبيت</button><button id="cartBtn" class="relative bg-gray-800/80 p-2 rounded-xl border border-amber-500/20"><i class="fas fa-shopping-bag text-amber-500"></i><span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-amber-600 to-amber-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-black">0</span></button></div>
+    </header>
+    <div class="nav-sections" id="navSections"></div>
+    <main class="container mx-auto px-2 py-3" id="mainContent"></main>
+</div>
 <button id="locationToggleBtn" class="location-toggle-btn"><i class="fas fa-map-marker-alt"></i> <span>تفعيل الموقع</span></button>
 <div id="cartModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300"><div class="cart-card max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col"><div class="sticky top-0 bg-[#0e1219] border-b border-amber-500/20 p-4 flex justify-between"><h3 class="font-black text-lg text-amber-500"><i class="fas fa-bag-shopping"></i> مخلتي</h3><button id="closeCartModal" class="text-gray-400 hover:text-amber-500 text-2xl">&times;</button></div><div id="cartItemsList" class="p-4 space-y-3 flex-1 overflow-y-auto"></div><div class="border-t border-amber-500/20 p-4 bg-[#0b0f14] flex-shrink-0"><div class="flex justify-between text-gray-300"><span class="font-bold">المجموع:</span><span id="cartSubtotal" class="font-bold text-amber-500">0</span> أوقية</div><div class="flex justify-between text-gray-400 mt-1"><span><i class="fas fa-motorcycle"></i> التوصيل:</span><span id="deliveryFeeSpan">0</span> أوقية</div><div id="balanceDeductionInfo" class="mt-1 text-xs gold-deduction-text"><i class="fas fa-wallet gold-deduction-text"></i> <span>سيتم خصم رسوم التوصيل من رصيدك بعد تأكيد التوصيل</span></div><div class="flex justify-between text-gray-300 text-xl mt-2 pt-2 border-t border-amber-500/30"><span class="font-bold">الإجمالي:</span><span id="cartTotal" class="font-bold text-amber-500 text-xl">0</span> أوقية</div><div id="insufficientBalanceWarning" class="insufficient-warning hidden"><i class="fas fa-exclamation-triangle ml-1"></i> رصيدك لا يكفي لتغطية رسوم التوصيل، يرجى شحن الرصيد لإرسال الطلب</div><div class="mt-3 flex justify-center"><div class="cash-badge"><i class="fas fa-hand-holding-usd"></i> الدفع عند استلام الطلب</div></div><button id="sendWhatsAppBtn" class="w-full bg-green-600 text-white py-2.5 rounded-xl mt-4 flex justify-center gap-2 items-center font-bold"><i class="fab fa-whatsapp"></i> إرسال الطلب</button></div></div></div>
 <script>
@@ -108,20 +128,27 @@
         let userLocation = null;
         let currentCustomer = null;
         let isLoginMode = true;
+        let isOnline = navigator.onLine;
         
         function hideLoading() { document.getElementById('loadingScreen').style.display = 'none'; }
         function showToast(msg, isError) { let t = document.querySelector('.toast'); if(t) t.remove(); const toast = document.createElement('div'); toast.className = 'toast'; toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i><span>${msg}</span>`; document.body.appendChild(toast); toast.offsetHeight; toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000); }
         function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
         function getDeliveryFee() { return appSettings.delivery_fee || 0; }
         
+        window.addEventListener('online', () => { isOnline = true; document.getElementById('offlineLoginMsg').style.display = 'none'; showToast("تم استعادة الاتصال", false); });
+        window.addEventListener('offline', () => { isOnline = false; document.getElementById('offlineLoginMsg').style.display = 'block'; showToast("لا يوجد إنترنت - يمكنك فقط عرض شاشة الدخول", true); });
+        
         async function refreshCustomerBalance(updateUI = true) {
             if(!currentCustomer) return 0;
-            const { data, error } = await supabase.from('customers').select('balance').eq('id', currentCustomer.id).single();
-            if(!error && data) {
-                currentCustomer.balance = data.balance;
-                if(updateUI) document.getElementById('balanceAmount').innerText = currentCustomer.balance;
-                return data.balance;
-            }
+            if(!isOnline) return currentCustomer.balance || 0;
+            try {
+                const { data, error } = await supabase.from('customers').select('balance').eq('id', currentCustomer.id).single();
+                if(!error && data) {
+                    currentCustomer.balance = data.balance;
+                    if(updateUI) document.getElementById('balanceAmount').innerText = currentCustomer.balance;
+                    return data.balance;
+                }
+            } catch(e) {}
             return currentCustomer.balance || 0;
         }
         
@@ -136,7 +163,7 @@
             if(!btn) return;
             const delivery = getDeliveryFee();
             const hasEnough = currentCustomer && currentCustomer.balance >= delivery;
-            if(hasEnough && cart.length && userLocation) {
+            if(hasEnough && cart.length && userLocation && isOnline) {
                 btn.disabled = false;
                 btn.classList.remove('send-btn-disabled');
             } else {
@@ -161,11 +188,43 @@
             const cpins = ['cpin1','cpin2','cpin3','cpin4']; cpins.forEach((id, idx) => { const input = document.getElementById(id); if(input) { input.addEventListener('input', (e) => { if (e.target.value.length === 1 && idx < 3) document.getElementById(cpins[idx+1]).focus(); }); input.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && e.target.value === '' && idx > 0) document.getElementById(cpins[idx-1]).focus(); }); } });
         }
         
-        async function login(phone, code) { phone = phone.trim(); const { data, error } = await supabase.from('customers').select('id, phone, balance, secret_code').eq('phone', phone).maybeSingle(); if(error || !data) { showToast("رقم الهاتف غير مسجل", true); clearPins(); return false; } if(data.secret_code !== code) { showToast("الكود السري غير صحيح", true); clearPins(); return false; } currentCustomer = { id: data.id, phone: data.phone, balance: data.balance }; localStorage.setItem('customer', JSON.stringify(currentCustomer)); await refreshCustomerBalance(true); return true; }
-        async function register(phone, code, confirmCode) { if(phone.length !== 8) { showToast("رقم الهاتف يجب أن يكون 8 أرقام", true); return false; } if(code.length !== 4) { showToast("الكود السري 4 أرقام", true); return false; } if(code !== confirmCode) { showToast("الكود السري غير متطابق", true); clearPins(); return false; } const { data: existing } = await supabase.from('customers').select('id').eq('phone', phone).maybeSingle(); if(existing) { showToast("رقم الهاتف مسجل مسبقاً", true); return false; } const { data, error } = await supabase.from('customers').insert([{ phone, secret_code: code, balance: 0 }]).select('id, phone, balance').single(); if(error) { showToast("خطأ في التسجيل, حاول مرة أخرى", true); return false; } currentCustomer = data; localStorage.setItem('customer', JSON.stringify(data)); showToast("تم إنشاء الحساب بنجاح", false); return true; }
-        function logout() { currentCustomer = null; localStorage.removeItem('customer'); cart = []; updateCartUI(); document.getElementById('mainApp').classList.remove('visible'); document.getElementById('loginScreen').classList.add('active'); showToast("تم تسجيل الخروج"); }
+        async function login(phone, code) { 
+            if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return false; }
+            phone = phone.trim(); 
+            const { data, error } = await supabase.from('customers').select('id, phone, balance, secret_code').eq('phone', phone).maybeSingle(); 
+            if(error || !data) { showToast("رقم الهاتف غير مسجل", true); clearPins(); return false; } 
+            if(data.secret_code !== code) { showToast("الكود السري غير صحيح", true); clearPins(); return false; } 
+            currentCustomer = { id: data.id, phone: data.phone, balance: data.balance }; 
+            localStorage.setItem('customer', JSON.stringify(currentCustomer)); 
+            await refreshCustomerBalance(true); 
+            return true; 
+        }
+        async function register(phone, code, confirmCode) { 
+            if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return false; }
+            if(phone.length !== 8) { showToast("رقم الهاتف يجب أن يكون 8 أرقام", true); return false; } 
+            if(code.length !== 4) { showToast("الكود السري 4 أرقام", true); return false; } 
+            if(code !== confirmCode) { showToast("الكود السري غير متطابق", true); clearPins(); return false; } 
+            const { data: existing } = await supabase.from('customers').select('id').eq('phone', phone).maybeSingle(); 
+            if(existing) { showToast("رقم الهاتف مسجل مسبقاً", true); return false; } 
+            const { data, error } = await supabase.from('customers').insert([{ phone, secret_code: code, balance: 0 }]).select('id, phone, balance').single(); 
+            if(error) { showToast("خطأ في التسجيل, حاول مرة أخرى", true); return false; } 
+            currentCustomer = data; 
+            localStorage.setItem('customer', JSON.stringify(data)); 
+            showToast("تم إنشاء الحساب بنجاح", false); 
+            return true; 
+        }
+        function logout() { 
+            currentCustomer = null; 
+            localStorage.removeItem('customer'); 
+            cart = []; 
+            updateCartUI(); 
+            document.getElementById('mainApp').classList.remove('visible'); 
+            document.getElementById('loginScreen').classList.add('active'); 
+            showToast("تم تسجيل الخروج"); 
+        }
         function updateCustomerUI() { if(currentCustomer) document.getElementById('balanceAmount').innerText = currentCustomer.balance; else document.getElementById('balanceAmount').innerText = '0'; }
         
+        // -------------------  دوال المنتجات (كما هي) -------------------
         function getProductVariants(productId) { return variants.filter(v => v.product_id === productId); }
         function findVariant(productId, status, type) { const s = (status === '' || status === undefined || status === null) ? null : status; const t = (type === '' || type === undefined || type === null) ? null : type; return variants.find(v => v.product_id === productId && ((v.status === null && s === null) || v.status === s) && ((v.type === null && t === null) || v.type === t)); }
         function formatVariantLabel(status, type){ if(status && type) return `(${status} / ${type})`; if(status && !type) return `(${status})`; if(!status && type) return `(${type})`; return ""; }
@@ -255,10 +314,29 @@
         }
         
         async function loadStoreData() {
-            const [familiesRes, productsRes, variantsRes, settingsRes] = await Promise.all([ supabase.from('product_families').select('*').order('name'), supabase.from('products').select('*, product_families(name)'), supabase.from('product_variants').select('*'), supabase.from('app_settings').select('key, value') ]);
-            families = familiesRes.data || []; products = productsRes.data || []; variants = variantsRes.data || [];
-            if(settingsRes.data) settingsRes.data.forEach(row => { if(row.key === 'delivery_fee') appSettings.delivery_fee = parseFloat(row.value) || 0; if(row.key === 'whatsapp_number') appSettings.whatsapp_number = row.value; });
-            renderCategories(); showToast("تم التحميل", false);
+            if(!isOnline) {
+                showToast("لا يوجد إنترنت - لا يمكن تحميل المتجر", true);
+                return;
+            }
+            try {
+                const [familiesRes, productsRes, variantsRes, settingsRes] = await Promise.all([
+                    supabase.from('product_families').select('*').order('name'),
+                    supabase.from('products').select('*, product_families(name)'),
+                    supabase.from('product_variants').select('*'),
+                    supabase.from('app_settings').select('key, value')
+                ]);
+                families = familiesRes.data || [];
+                products = productsRes.data || [];
+                variants = variantsRes.data || [];
+                if(settingsRes.data) settingsRes.data.forEach(row => { if(row.key === 'delivery_fee') appSettings.delivery_fee = parseFloat(row.value) || 0; if(row.key === 'whatsapp_number') appSettings.whatsapp_number = row.value; });
+                const cache = { families, products, variants, appSettings, timestamp: Date.now() };
+                localStorage.setItem('storeCache', JSON.stringify(cache));
+                renderCategories();
+                showToast("تم تحميل المتجر", false);
+            } catch (err) {
+                console.warn("فشل التحميل", err);
+                showToast("فشل تحميل البيانات - تأكد من اتصالك", true);
+            }
         }
         
         function addToCart(variantId, name, price, stock, status, type, qty) { const existing = cart.find(i => i.variantId === variantId); if(existing) { if(existing.qty + qty > stock) { showToast(`لا يمكن إضافة أكثر من ${stock}`, true); return; } existing.qty += qty; } else { cart.push({ variantId, name, price, qty, status, type, stock }); } updateCartUI(); showToast(`تمت الإضافة: ${qty} × ${name} ${formatVariantLabel(status, type)}`, false); }
@@ -277,6 +355,7 @@
             if(!cart.length) { showToast("لمخلة خاوية", true); return; }
             if(!currentCustomer) { showToast("يرجى تسجيل الدخول أولاً", true); return; }
             if(!userLocation) { showToast("لا يمكن إرسال الطلب بدون تحديد الموقع.", true); return; }
+            if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت لإرسال الطلب", true); return; }
             const deliveryFee = getDeliveryFee();
             await refreshCustomerBalance(true);
             if(currentCustomer.balance < deliveryFee) { showToast(`رصيدك (${currentCustomer.balance} أوقية) لا يكفي لتغطية رسوم التوصيل (${deliveryFee} أوقية)`, true); return; }
@@ -292,8 +371,35 @@
             cart = []; updateCartUI(); renderCartModal(); showToast("تم إرسال الطلب بنجاح");
         }
         
-        async function startAppAfterLogin() { document.getElementById('loginScreen').classList.remove('active'); document.getElementById('mainApp').classList.add('visible'); await refreshCustomerBalance(true); await loadStoreData(); hideLoading(); }
-        async function checkExistingSession() { const stored = localStorage.getItem('customer'); if(stored) { try { currentCustomer = JSON.parse(stored); const { data, error } = await supabase.from('customers').select('id, balance').eq('id', currentCustomer.id).single(); if(!error && data) { currentCustomer.balance = data.balance; await startAppAfterLogin(); return true; } } catch(e){} } hideLoading(); document.getElementById('loginScreen').classList.add('active'); return false; }
+        async function startAppAfterLogin() { 
+            document.getElementById('loginScreen').classList.remove('active'); 
+            document.getElementById('mainApp').classList.add('visible'); 
+            await refreshCustomerBalance(true); 
+            await loadStoreData(); 
+            hideLoading();
+        }
+        
+        async function checkExistingSession() { 
+            if(!isOnline) {
+                hideLoading();
+                document.getElementById('loginScreen').classList.add('active');
+                document.getElementById('offlineLoginMsg').style.display = 'block';
+                return false;
+            }
+            const stored = localStorage.getItem('customer'); 
+            if(stored) { 
+                try { 
+                    currentCustomer = JSON.parse(stored); 
+                    const { data, error } = await supabase.from('customers').select('id, balance').eq('id', currentCustomer.id).single(); 
+                    if(!error && data) currentCustomer.balance = data.balance;
+                    await startAppAfterLogin(); 
+                    return true; 
+                } catch(e){} 
+            } 
+            hideLoading(); 
+            document.getElementById('loginScreen').classList.add('active'); 
+            return false; 
+        }
         
         function toggleMode() { isLoginMode = !isLoginMode; const btn = document.getElementById('loginActionBtn'); const switchText = document.getElementById('switchModeBtn'); const confirmGroup = document.getElementById('confirmPinGroup'); if(isLoginMode) { btn.innerHTML = 'تسجيل الدخول'; switchText.innerHTML = 'ليس لديك حساب؟ إنشاء حساب جديد'; confirmGroup.style.display = 'none'; } else { btn.innerHTML = 'إنشاء حساب'; switchText.innerHTML = 'لديك حساب؟ تسجيل الدخول'; confirmGroup.style.display = 'block'; } clearPins(); }
         
@@ -304,12 +410,34 @@
             window.onclick = e => { if(e.target === document.getElementById('cartModal')) document.getElementById('closeCartModal').click(); };
             document.getElementById('locationToggleBtn').onclick = toggleLocation;
             document.getElementById('logoutMainBtn').onclick = logout;
-            document.getElementById('loginActionBtn').onclick = async () => { const phone = document.getElementById('loginPhone').value.trim(); const code = getPinCode(); if(!phone || code.length !== 4) { showToast("أدخل رقم الهاتف و الرمز السري ", true); clearPins(); return; } if(isLoginMode) { let success = await login(phone, code); if(success) { await startAppAfterLogin(); } else clearPins(); } else { const confirmCode = getConfirmPinCode(); if(confirmCode.length !== 4) { showToast("يرجى تأكيد الرمز السري", true); clearPins(); return; } let success = await register(phone, code, confirmCode); if(success) { await startAppAfterLogin(); } else clearPins(); } };
+            document.getElementById('loginActionBtn').onclick = async () => { 
+                if(!isOnline) {
+                    showToast("لا يوجد اتصال بالإنترنت", true);
+                    return;
+                }
+                const phone = document.getElementById('loginPhone').value.trim(); 
+                const code = getPinCode(); 
+                if(!phone || code.length !== 4) { showToast("أدخل رقم الهاتف و الرمز السري ", true); clearPins(); return; } 
+                if(isLoginMode) { 
+                    let success = await login(phone, code); 
+                    if(success) { await startAppAfterLogin(); } 
+                    else clearPins(); 
+                } else { 
+                    const confirmCode = getConfirmPinCode(); 
+                    if(confirmCode.length !== 4) { showToast("يرجى تأكيد الرمز السري", true); clearPins(); return; } 
+                    let success = await register(phone, code, confirmCode); 
+                    if(success) { await startAppAfterLogin(); } 
+                    else clearPins(); 
+                } 
+            };
             document.getElementById('switchModeBtn').onclick = toggleMode;
         }
         
         let deferredPrompt; window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; const btn = document.getElementById('installBtn'); btn.style.display = 'flex'; btn.onclick = async () => { btn.style.display = 'none'; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; }; });
-        if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(e=>console.log);
+        
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(e=>console.warn("SW registration failed", e));
+        }
         setupPinAutoFocus(); bindEvents(); checkExistingSession();
     })();
 </script>
