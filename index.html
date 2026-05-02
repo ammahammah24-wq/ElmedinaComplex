@@ -65,22 +65,31 @@
         .main-app.visible { display: block; }
         .glass-premium { background: rgba(18,22,28,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(217,119,6,0.2); }
         
-        /* بطاقة المنتج مع overflow visible */
+        /* بطاقة المنتج - نفس الحجم السابق مع overflow: visible */
         .product-card {
             background: linear-gradient(145deg, #13171f, #0e1219);
             border-radius: 24px;
-            overflow: visible;
+            overflow: visible; /* ضروري لخروج القائمة */
             box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
             transition: all 0.35s;
             margin-bottom: 16px;
             border: 1px solid rgba(217,119,6,0.12);
             position: relative;
+            width: 100%; /* يمنع التمدد */
         }
         .product-card:hover { transform: translateY(-4px); border-color: rgba(217,119,6,0.3); }
-        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #101316; border-radius: 24px 24px 0 0; }
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #101316;
+            border-radius: 24px 24px 0 0;
+        }
         .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; pointer-events: none; }
         .product-card:hover .product-img { transform: scale(1.03); }
         
+        /* اسم المنتج - z-index منخفض */
         .product-name-centered {
             position: absolute;
             top: 50%;
@@ -102,6 +111,7 @@
             pointer-events: none;
         }
         
+        /* الشريط السفلي للخيارات */
         .options-bottom-bar {
             position: absolute;
             bottom: 0;
@@ -116,6 +126,7 @@
             flex-wrap: wrap;
         }
         
+        /* ========== القائمة المنسدلة (تظهر للأعلى) ========== */
         .custom-dropdown {
             position: relative;
             display: inline-block;
@@ -156,7 +167,7 @@
             border-radius: 20px;
             border: 1px solid rgba(245, 158, 11, 0.4);
             box-shadow: 0 -8px 28px rgba(0,0,0,0.5);
-            z-index: 9999; /* عالٍ جداً */
+            z-index: 9999;
             max-height: 200px;
             overflow-y: auto;
             opacity: 0;
@@ -191,6 +202,7 @@
         .dropdown-options::-webkit-scrollbar-track { background: #1e2a3a; border-radius: 10px; }
         .dropdown-options::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
         
+        /* زر ثابت (عند وجود خيار واحد) */
         .static-option {
             background: rgba(20, 30, 40, 0.85);
             backdrop-filter: blur(12px);
@@ -214,7 +226,15 @@
         .availability-badge.unavailable { background: linear-gradient(135deg, #991b1b, #7f1d1d); border-color: #ef4444; }
         .badge-icon { width: 24px; height: 24px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
         .badge-text { font-size: 0.75rem; font-weight: 800; color: white; letter-spacing: 0.3px; }
-        @media (max-width: 480px) { .availability-badge { top: 8px; right: 8px; padding: 4px 10px 4px 8px; gap: 5px; } .badge-icon { width: 20px; height: 20px; font-size: 10px; } .badge-text { font-size: 0.65rem; } .product-name-centered { font-size: 0.7rem; padding: 5px 10px; } .custom-dropdown, .static-option { min-width: 70px; } .dropdown-selected, .static-option { font-size: 0.6rem; padding: 4px 6px; } .dropdown-options li { font-size: 0.6rem; padding: 6px 8px; } }
+        @media (max-width: 480px) {
+            .availability-badge { top: 8px; right: 8px; padding: 4px 10px 4px 8px; gap: 5px; }
+            .badge-icon { width: 20px; height: 20px; font-size: 10px; }
+            .badge-text { font-size: 0.65rem; }
+            .product-name-centered { font-size: 0.7rem; padding: 5px 10px; }
+            .custom-dropdown, .static-option { min-width: 70px; }
+            .dropdown-selected, .static-option { font-size: 0.6rem; padding: 4px 6px; }
+            .dropdown-options li { font-size: 0.6rem; padding: 6px 8px; }
+        }
         .card-footer { padding: 10px 12px 12px; display: flex; gap: 10px; background: #0e1219; border-radius: 0 0 24px 24px; }
         .qty-control { background: #1a1f28; border-radius: 60px; padding: 4px 8px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #2a2f3a; width: 33%; justify-content: center; }
         .qty-btn { font-size: 1.2rem; font-weight: 900; width: 28px; text-align: center; cursor: pointer; color: #f59e0b; }
@@ -228,8 +248,18 @@
         .nav-btn.active { background: linear-gradient(135deg, #d97706, #f59e0b); color: #0a0c10; border-color: #ffb347; }
         @media (max-width: 580px) { .nav-btn { font-size: 0.7rem; min-height: 50px; min-width: 60px; } .nav-sections { gap: 6px; } }
         .family-header { cursor: pointer; background: linear-gradient(95deg, #11161e, #0e1219); border-bottom: 1px solid rgba(217,119,6,0.15); padding: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 16px 14px; background: #0a0c10; }
-        @media (max-width: 480px) { .products-grid { gap: 10px; padding: 12px 10px; } .qty-control { width: 32%; } .go-btn { width: 65%; font-size: 0.7rem; } }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            padding: 16px 14px;
+            background: #0a0c10;
+        }
+        @media (max-width: 480px) {
+            .products-grid { gap: 10px; padding: 12px 10px; }
+            .qty-control { width: 32%; }
+            .go-btn { width: 65%; font-size: 0.7rem; }
+        }
         .cart-card { background: linear-gradient(145deg, #13171f, #0e1219); border-radius: 32px; overflow: hidden; }
         .empty-category { background: rgba(18,22,28,0.6); backdrop-filter: blur(8px); border: 1px dashed rgba(217,119,6,0.4); border-radius: 28px; padding: 40px 20px; text-align: center; color: #9ca3af; }
         .category-main-title { font-size: 1.6rem; font-weight: 900; background: linear-gradient(135deg, #f59e0b, #ffd966); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 16px; padding-right: 10px; }
