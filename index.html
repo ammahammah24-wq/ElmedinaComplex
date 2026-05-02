@@ -15,9 +15,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        * { font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0c10; touch-action: pan-x pan-y; position: relative; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(217,119,6,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(217,119,6,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        /* منع التحديد في جميع العناصر مع استثناء المدخلات */
+        * {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none; /* منع تحديد النص والعناصر */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        /* السماح بالتحديد فقط في حقول الإدخال والنصوص القابلة للتحرير */
+        input, textarea, [contenteditable="true"] {
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+        }
+        body {
+            background: #0a0c10;
+            touch-action: pan-x pan-y;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(rgba(217,119,6,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(217,119,6,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
         .loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #0a0c10; display: flex; align-items: center; justify-content: center; z-index: 10001; flex-direction: column; gap: 15px; }
         .spinner { border: 3px solid #1e293b; border-top: 3px solid #f59e0b; border-radius: 50%; width: 50px; height: 50px; animation: spin 0.8s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -43,7 +76,7 @@
         .product-card { background: linear-gradient(145deg, #13171f, #0e1219); border-radius: 24px; overflow: hidden; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5); transition: all 0.35s; margin-bottom: 16px; border: 1px solid rgba(217,119,6,0.12); position: relative; }
         .product-card:hover { transform: translateY(-4px); border-color: rgba(217,119,6,0.3); }
         .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #101316; }
-        .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; pointer-events: none; } /* منع سحب الصورة */
         .product-card:hover .product-img { transform: scale(1.03); }
         .product-name-centered { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 60px; color: #ffedd5; font-weight: 800; font-size: 0.9rem; white-space: nowrap; z-index: 3; border: 1px solid rgba(217,119,6,0.4); max-width: 85%; overflow: hidden; text-overflow: ellipsis; }
         .options-bottom-bar { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.5) 70%, transparent); padding: 10px 12px; display: flex; justify-content: center; gap: 10px; z-index: 2; flex-wrap: wrap; }
@@ -86,7 +119,7 @@
         .location-toggle-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a1f28; border: 1px solid #f59e0b40; border-radius: 60px; padding: 12px 24px; font-size: 0.9rem; font-weight: 800; color: #fbbf24; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 10px; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.3); backdrop-filter: blur(10px); }
         .location-toggle-btn.active { background: #15803d; color: white; border-color: #22c55e; }
         .insufficient-warning { color: #ef4444; font-size: 0.85rem; margin-top: 8px; text-align: center; font-weight: 800; background: rgba(153,27,27,0.2); padding: 8px; border-radius: 40px; }
-        .brand-logo-img { object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .brand-logo-img { object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.2); pointer-events: none; } /* منع سحب الشعار */
         .gold-deduction-text { color: #fbbf24 !important; font-weight: 800; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
         .send-btn-disabled { opacity: 0.5; pointer-events: none; filter: grayscale(0.1); }
         .offline-warning { background: #dc2626; color: white; text-align: center; padding: 8px; font-size: 0.8rem; position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; }
@@ -119,6 +152,12 @@
 <div id="cartModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300"><div class="cart-card max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col"><div class="sticky top-0 bg-[#0e1219] border-b border-amber-500/20 p-4 flex justify-between"><h3 class="font-black text-lg text-amber-500"><i class="fas fa-bag-shopping"></i> مخلتي</h3><button id="closeCartModal" class="text-gray-400 hover:text-amber-500 text-2xl">&times;</button></div><div id="cartItemsList" class="p-4 space-y-3 flex-1 overflow-y-auto"></div><div class="border-t border-amber-500/20 p-4 bg-[#0b0f14] flex-shrink-0"><div class="flex justify-between text-gray-300"><span class="font-bold">المجموع:</span><span id="cartSubtotal" class="font-bold text-amber-500">0</span> أوقية</div><div class="flex justify-between text-gray-400 mt-1"><span><i class="fas fa-motorcycle"></i> التوصيل:</span><span id="deliveryFeeSpan">0</span> أوقية</div><div id="balanceDeductionInfo" class="mt-1 text-xs gold-deduction-text"><i class="fas fa-wallet gold-deduction-text"></i> <span>سيتم خصم رسوم التوصيل من رصيدك بعد تأكيد التوصيل</span></div><div class="flex justify-between text-gray-300 text-xl mt-2 pt-2 border-t border-amber-500/30"><span class="font-bold">الإجمالي:</span><span id="cartTotal" class="font-bold text-amber-500 text-xl">0</span> أوقية</div><div id="insufficientBalanceWarning" class="insufficient-warning hidden"><i class="fas fa-exclamation-triangle ml-1"></i> رصيدك لا يكفي لتغطية رسوم التوصيل، يرجى شحن الرصيد لإرسال الطلب</div><div class="mt-3 flex justify-center"><div class="cash-badge"><i class="fas fa-hand-holding-usd"></i> الدفع عند استلام الطلب</div></div><button id="sendWhatsAppBtn" class="w-full bg-green-600 text-white py-2.5 rounded-xl mt-4 flex justify-center gap-2 items-center font-bold"><i class="fab fa-whatsapp"></i> إرسال الطلب</button></div></div></div>
 <script>
     (function(){
+        // منع ظهور قائمة السياق (يمين الفأرة / الضغط المطول)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
         const SUPABASE_URL = "https://tgiskvnwmjutbtdrhuas.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnaXNrdm53bWp1dGJ0ZHJodWFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTQ3ODYsImV4cCI6MjA5MTA3MDc4Nn0.RHJhvHV6l6Rr7YdXfC5FKrysi_TeXuX4r-juL_m6O2k";
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
