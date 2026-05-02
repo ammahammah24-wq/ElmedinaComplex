@@ -65,17 +65,18 @@
         .main-app.visible { display: block; }
         .glass-premium { background: rgba(18,22,28,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(217,119,6,0.2); }
         
-        /* بطاقة المنتج - نفس الحجم السابق مع overflow: visible */
+        /* ===== PRODUCT CARD ===== */
         .product-card {
             background: linear-gradient(145deg, #13171f, #0e1219);
             border-radius: 24px;
-            overflow: visible; /* ضروري لخروج القائمة */
+            overflow: visible;
             box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
             transition: all 0.35s;
             margin-bottom: 16px;
             border: 1px solid rgba(217,119,6,0.12);
             position: relative;
-            width: 100%; /* يمنع التمدد */
+            width: 100%;
+            min-width: 0;
         }
         .product-card:hover { transform: translateY(-4px); border-color: rgba(217,119,6,0.3); }
         .product-img-wrapper {
@@ -88,8 +89,6 @@
         }
         .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; pointer-events: none; }
         .product-card:hover .product-img { transform: scale(1.03); }
-        
-        /* اسم المنتج - z-index منخفض */
         .product-name-centered {
             position: absolute;
             top: 50%;
@@ -110,8 +109,6 @@
             text-overflow: ellipsis;
             pointer-events: none;
         }
-        
-        /* الشريط السفلي للخيارات */
         .options-bottom-bar {
             position: absolute;
             bottom: 0;
@@ -121,12 +118,10 @@
             padding: 10px 12px;
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             z-index: 5;
             flex-wrap: wrap;
         }
-        
-        /* ========== القائمة المنسدلة (تظهر للأعلى) ========== */
         .custom-dropdown {
             position: relative;
             display: inline-block;
@@ -176,6 +171,7 @@
             transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             list-style: none;
             padding: 6px 0;
+            scrollbar-width: thin;
         }
         .custom-dropdown.open .dropdown-options {
             opacity: 1;
@@ -198,11 +194,10 @@
             background: rgba(245, 158, 11, 0.3);
             color: white;
         }
-        .dropdown-options::-webkit-scrollbar { width: 3px; }
+        .dropdown-options::-webkit-scrollbar { width: 4px; }
         .dropdown-options::-webkit-scrollbar-track { background: #1e2a3a; border-radius: 10px; }
         .dropdown-options::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
         
-        /* زر ثابت (عند وجود خيار واحد) */
         .static-option {
             background: rgba(20, 30, 40, 0.85);
             backdrop-filter: blur(12px);
@@ -219,7 +214,6 @@
             flex: 1;
             min-width: 85px;
         }
-        
         .price-badge { position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #000000cc, #1a1a1acc); backdrop-filter: blur(16px); color: #ffd966; font-weight: 900; font-size: 0.8rem; padding: 5px 12px; border-radius: 40px; z-index: 4; border: 1px solid rgba(217,119,6,0.5); }
         .availability-badge { position: absolute; top: 12px; right: 12px; z-index: 4; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px); padding: 6px 14px 6px 12px; border-radius: 60px; border: 1px solid rgba(255,215,0,0.4); transition: all 0.2s; transform: rotate(3deg); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .availability-badge.available { background: linear-gradient(135deg, #15803d, #166534); border-color: #22c55e; }
@@ -250,10 +244,11 @@
         .family-header { cursor: pointer; background: linear-gradient(95deg, #11161e, #0e1219); border-bottom: 1px solid rgba(217,119,6,0.15); padding: 12px; display: flex; justify-content: space-between; align-items: center; }
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 14px;
             padding: 16px 14px;
             background: #0a0c10;
+            overflow: visible;
         }
         @media (max-width: 480px) {
             .products-grid { gap: 10px; padding: 12px 10px; }
@@ -268,8 +263,6 @@
         ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
         .rotated { transform: rotate(180deg); }
         .products-collapsible { display: none; }
-        .balance-badge { background: rgba(245,158,11,0.2); border-radius: 60px; padding: 5px 12px; font-size: 0.75rem; font-weight: 800; color: #fbbf24; display: inline-flex; align-items: center; gap: 6px; margin-right: 10px; }
-        .logout-main-btn { background: #2d3748; border-radius: 60px; padding: 5px 12px; font-size: 0.7rem; cursor: pointer; color: #ef4444; }
         .cash-badge { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); border-radius: 60px; padding: 8px 16px; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
         .install-btn { background: linear-gradient(135deg, #2d3748, #1a202c); color: #f59e0b; border: 1px solid rgba(245,158,11,0.4); border-radius: 60px; padding: 7px 14px; font-size: 0.75rem; font-weight: 800; cursor: pointer; }
         .location-toggle-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a1f28; border: 1px solid #f59e0b40; border-radius: 60px; padding: 12px 24px; font-size: 0.9rem; font-weight: 800; color: #fbbf24; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 10px; z-index: 100; backdrop-filter: blur(10px); }
@@ -278,6 +271,61 @@
         .brand-logo-img { object-fit: cover; pointer-events: none; }
         .gold-deduction-text { color: #fbbf24 !important; font-weight: 800; }
         .send-btn-disabled { opacity: 0.5; pointer-events: none; }
+        
+        /* قائمة الإعدادات المنسدلة */
+        .settings-dropdown {
+            position: absolute;
+            top: 60px;
+            left: 10px;
+            background: rgba(15, 25, 35, 0.96);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 1000;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            padding: 12px;
+        }
+        .settings-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .settings-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            color: #ffedd5;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+        }
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        .settings-item i {
+            width: 24px;
+            color: #f59e0b;
+        }
+        .logout-settings-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+        .logout-settings-btn:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+        .settings-btn-active {
+            background: rgba(245,158,11,0.3);
+            border-color: #f59e0b;
+        }
     </style>
 </head>
 <body>
@@ -298,7 +346,26 @@
 <div class="main-app" id="mainApp">
     <header class="glass-premium sticky top-0 z-30 p-3 flex justify-between items-center px-4">
         <div class="flex items-center gap-2"><img src="icon.png" alt="شعار مجمع المدينة" class="w-9 h-9 rounded-xl object-cover shadow-md border border-amber-500/30 brand-logo-img" onerror="this.src='https://placehold.co/36x36?text=Store';"><span class="font-black text-transparent bg-clip-text bg-gradient-to-l from-amber-400 to-amber-600 text-lg">مجمع <span class="text-amber-500">المدينة</span></span></div>
-        <div class="flex items-center gap-2"><div id="balanceDisplay" class="balance-badge"><i class="fas fa-coins"></i> <span id="balanceAmount">0</span> أوقية</div><div id="logoutMainBtn" class="logout-main-btn"><i class="fas fa-sign-out-alt"></i> خروج</div><button id="installBtn" class="install-btn" style="display: none;"><i class="fas fa-download"></i> تثبيت</button><button id="cartBtn" class="relative bg-gray-800/80 p-2 rounded-xl border border-amber-500/20"><i class="fas fa-shopping-bag text-amber-500"></i><span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-amber-600 to-amber-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-black">0</span></button></div>
+        <div class="flex items-center gap-2 relative">
+            <button id="settingsBtn" class="relative bg-gray-800/80 p-2 rounded-xl border border-amber-500/20 transition-all duration-200"><i class="fas fa-user-cog text-amber-500 text-lg"></i></button>
+            <button id="cartBtn" class="relative bg-gray-800/80 p-2 rounded-xl border border-amber-500/20"><i class="fas fa-shopping-bag text-amber-500"></i><span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-amber-600 to-amber-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-black">0</span></button>
+            
+            <!-- قائمة الإعدادات المنسدلة -->
+            <div id="settingsDropdown" class="settings-dropdown">
+                <div class="settings-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span id="settingsPhone">رقم العميل</span>
+                </div>
+                <div class="settings-item">
+                    <i class="fas fa-coins"></i>
+                    <span id="settingsBalance">0 أوقية</span>
+                </div>
+                <div id="logoutSettingsBtn" class="settings-item logout-settings-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>تسجيل الخروج</span>
+                </div>
+            </div>
+        </div>
     </header>
     <div class="nav-sections" id="navSections"></div>
     <main class="container mx-auto px-2 py-3" id="mainContent"></main>
@@ -336,11 +403,23 @@
                 const { data, error } = await supabase.from('customers').select('balance').eq('id', currentCustomer.id).single();
                 if(!error && data) {
                     currentCustomer.balance = data.balance;
-                    if(updateUI) document.getElementById('balanceAmount').innerText = currentCustomer.balance;
+                    if(updateUI) {
+                        document.getElementById('settingsBalance').innerHTML = `${currentCustomer.balance} أوقية`;
+                    }
                     return data.balance;
                 }
             } catch(e) {}
             return currentCustomer.balance || 0;
+        }
+        
+        function updateSettingsDropdown() {
+            if(currentCustomer) {
+                document.getElementById('settingsPhone').innerHTML = currentCustomer.phone || '---';
+                document.getElementById('settingsBalance').innerHTML = `${currentCustomer.balance || 0} أوقية`;
+            } else {
+                document.getElementById('settingsPhone').innerHTML = 'غير متاح';
+                document.getElementById('settingsBalance').innerHTML = '0 أوقية';
+            }
         }
         
         function updateSendButtonState() {
@@ -370,88 +449,25 @@
             const cpins=['cpin1','cpin2','cpin3','cpin4']; cpins.forEach((id,idx)=>{ const inp=document.getElementById(id); if(inp){ inp.addEventListener('input',(e)=>{ if(e.target.value.length===1 && idx<3) document.getElementById(cpins[idx+1]).focus(); }); inp.addEventListener('keydown',(e)=>{ if(e.key==='Backspace' && e.target.value==='' && idx>0) document.getElementById(cpins[idx-1]).focus(); }); } });
         }
         
-        async function login(phone, code) {
-            if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return false; }
-            phone=phone.trim();
-            const { data, error } = await supabase.from('customers').select('id, phone, balance, secret_code').eq('phone', phone).maybeSingle();
-            if(error || !data) { showToast("رقم الهاتف غير مسجل", true); clearPins(); return false; }
-            if(data.secret_code !== code) { showToast("الكود السري غير صحيح", true); clearPins(); return false; }
-            currentCustomer = { id: data.id, phone: data.phone, balance: data.balance };
-            localStorage.setItem('customer', JSON.stringify(currentCustomer));
-            await refreshCustomerBalance(true);
-            return true;
-        }
-        async function register(phone, code, confirmCode) {
-            if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return false; }
-            if(phone.length!==8) { showToast("رقم الهاتف يجب أن يكون 8 أرقام", true); return false; }
-            if(code.length!==4) { showToast("الكود السري 4 أرقام", true); return false; }
-            if(code!==confirmCode) { showToast("الكود السري غير متطابق", true); clearPins(); return false; }
-            const { data: existing } = await supabase.from('customers').select('id').eq('phone', phone).maybeSingle();
-            if(existing) { showToast("رقم الهاتف مسجل مسبقاً", true); return false; }
-            const { data, error } = await supabase.from('customers').insert([{ phone, secret_code: code, balance: 0 }]).select('id, phone, balance').single();
-            if(error) { showToast("خطأ في التسجيل, حاول مرة أخرى", true); return false; }
-            currentCustomer = data;
-            localStorage.setItem('customer', JSON.stringify(data));
-            showToast("تم إنشاء الحساب بنجاح", false);
-            return true;
-        }
-        function logout() {
-            currentCustomer=null;
-            localStorage.removeItem('customer');
-            cart=[];
-            updateCartUI();
-            document.getElementById('mainApp').classList.remove('visible');
-            document.getElementById('loginScreen').classList.add('active');
-            showToast("تم تسجيل الخروج");
-        }
+        async function login(phone, code) { if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return false; } phone=phone.trim(); const { data, error } = await supabase.from('customers').select('id, phone, balance, secret_code').eq('phone', phone).maybeSingle(); if(error || !data) { showToast("رقم الهاتف غير مسجل", true); clearPins(); return false; } if(data.secret_code !== code) { showToast("الكود السري غير صحيح", true); clearPins(); return false; } currentCustomer = { id: data.id, phone: data.phone, balance: data.balance }; localStorage.setItem('customer', JSON.stringify(currentCustomer)); await refreshCustomerBalance(true); updateSettingsDropdown(); return true; }
+        async function register(phone, code, confirmCode) { if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return false; } if(phone.length!==8) { showToast("رقم الهاتف يجب أن يكون 8 أرقام", true); return false; } if(code.length!==4) { showToast("الكود السري 4 أرقام", true); return false; } if(code!==confirmCode) { showToast("الكود السري غير متطابق", true); clearPins(); return false; } const { data: existing } = await supabase.from('customers').select('id').eq('phone', phone).maybeSingle(); if(existing) { showToast("رقم الهاتف مسجل مسبقاً", true); return false; } const { data, error } = await supabase.from('customers').insert([{ phone, secret_code: code, balance: 0 }]).select('id, phone, balance').single(); if(error) { showToast("خطأ في التسجيل, حاول مرة أخرى", true); return false; } currentCustomer = data; localStorage.setItem('customer', JSON.stringify(data)); showToast("تم إنشاء الحساب بنجاح", false); updateSettingsDropdown(); return true; }
+        function logout() { currentCustomer=null; localStorage.removeItem('customer'); cart=[]; updateCartUI(); document.getElementById('mainApp').classList.remove('visible'); document.getElementById('loginScreen').classList.add('active'); document.getElementById('settingsDropdown').classList.remove('show'); showToast("تم تسجيل الخروج"); updateSettingsDropdown(); }
         
+        // دوال المنتجات والقوائم المخصصة (نفس الكود الأصلي ولكن تم حذف التكرار للاختصار مع إبقاء الوظائف كاملة)
         function getProductVariants(productId) { return variants.filter(v=>v.product_id===productId); }
-        function findVariant(productId, status, type) {
-            const s = (status===null||status===''||status==='لا توجد حالات')?null:status;
-            const t = (type===null||type===''||type==='لا توجد أنواع')?null:type;
-            return variants.find(v=>v.product_id===productId && ((v.status===null && s===null) || v.status===s) && ((v.type===null && t===null) || v.type===t));
-        }
+        function findVariant(productId, status, type) { const s = (status===null||status===''||status==='لا توجد حالات')?null:status; const t = (type===null||type===''||type==='لا توجد أنواع')?null:type; return variants.find(v=>v.product_id===productId && ((v.status===null && s===null) || v.status===s) && ((v.type===null && t===null) || v.type===t)); }
         function formatVariantLabel(status,type){ if(status && type) return `(${status} / ${type})`; if(status && !type) return `(${status})`; if(!status && type) return `(${type})`; return ""; }
         function getUniquePairs(productVariants) { return productVariants.map(v=>({ status: v.status||null, type: v.type||null, variant: v })); }
         
-        // إنشاء عنصر ثابت (بدون قائمة)
-        function createStaticOption(value) {
-            const div = document.createElement('div');
-            div.className = 'static-option';
-            div.innerText = value;
-            return div;
-        }
-        
-        // إنشاء dropdown مخصص (يظهر للأعلى) - فقط عند تعدد الخيارات
+        function createStaticOption(value) { const div = document.createElement('div'); div.className = 'static-option'; div.innerText = value; return div; }
         function createCustomDropdown(optionsArray, currentValue, onSelectCallback) {
-            if (optionsArray.length <= 1) {
-                return createStaticOption(currentValue || optionsArray[0] || '');
-            }
-            const container = document.createElement('div');
-            container.className = 'custom-dropdown';
-            const selectedDiv = document.createElement('div');
-            selectedDiv.className = 'dropdown-selected';
-            selectedDiv.innerText = currentValue || 'اختر';
-            container.appendChild(selectedDiv);
-            const optionsList = document.createElement('ul');
-            optionsList.className = 'dropdown-options';
-            optionsArray.forEach(opt => {
-                const li = document.createElement('li');
-                li.innerText = opt;
-                li.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    selectedDiv.innerText = opt;
-                    container.classList.remove('open');
-                    if (onSelectCallback) onSelectCallback(opt);
-                });
-                optionsList.appendChild(li);
-            });
+            if (optionsArray.length <= 1) return createStaticOption(currentValue || optionsArray[0] || '');
+            const container = document.createElement('div'); container.className = 'custom-dropdown';
+            const selectedDiv = document.createElement('div'); selectedDiv.className = 'dropdown-selected'; selectedDiv.innerText = currentValue || 'اختر'; container.appendChild(selectedDiv);
+            const optionsList = document.createElement('ul'); optionsList.className = 'dropdown-options';
+            optionsArray.forEach(opt => { const li = document.createElement('li'); li.innerText = opt; li.addEventListener('click', (e) => { e.stopPropagation(); selectedDiv.innerText = opt; container.classList.remove('open'); if (onSelectCallback) onSelectCallback(opt); }); optionsList.appendChild(li); });
             container.appendChild(optionsList);
-            selectedDiv.addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.querySelectorAll('.custom-dropdown.open').forEach(dd => { if (dd !== container) dd.classList.remove('open'); });
-                container.classList.toggle('open');
-            });
+            selectedDiv.addEventListener('click', (e) => { e.stopPropagation(); document.querySelectorAll('.custom-dropdown.open').forEach(dd => { if (dd !== container) dd.classList.remove('open'); }); container.classList.toggle('open'); });
             return container;
         }
         
@@ -516,20 +532,12 @@
                     availabilityDiv.className = `availability-badge unavailable`;
                     iconSpan.innerHTML = '<i class="fas fa-times"></i>';
                     textSpan.innerText = 'غير متوفر';
-                    addBtn.disabled = true;
-                    addBtn.classList.add('disabled');
-                    qtyInput.disabled = true;
+                    addBtn.disabled = true; addBtn.classList.add('disabled'); qtyInput.disabled = true;
                 }
             }
             
-            if(allStatuses.length) {
-                statusWidget = createCustomDropdown(allStatuses, currentStatusVal, (newVal)=>{ currentStatusVal=newVal; updateVariantAndUI(); if(typeWidget) updateAvailableOptions(); });
-                bottomBar.appendChild(statusWidget);
-            }
-            if(allTypes.length) {
-                typeWidget = createCustomDropdown(allTypes, currentTypeVal, (newVal)=>{ currentTypeVal=newVal; updateVariantAndUI(); if(statusWidget) updateAvailableOptions(); });
-                bottomBar.appendChild(typeWidget);
-            }
+            if(allStatuses.length) { statusWidget = createCustomDropdown(allStatuses, currentStatusVal, (newVal)=>{ currentStatusVal=newVal; updateVariantAndUI(); if(typeWidget) updateAvailableOptions(); }); bottomBar.appendChild(statusWidget); }
+            if(allTypes.length) { typeWidget = createCustomDropdown(allTypes, currentTypeVal, (newVal)=>{ currentTypeVal=newVal; updateVariantAndUI(); if(statusWidget) updateAvailableOptions(); }); bottomBar.appendChild(typeWidget); }
             
             const footer = document.createElement('div'); footer.className = 'card-footer';
             const qtyControl = document.createElement('div'); qtyControl.className = 'qty-control';
@@ -555,167 +563,40 @@
             updateVariantAndUI();
             if(statusWidget && typeWidget && !statusWidget.classList?.contains('static-option') && !typeWidget.classList?.contains('static-option')) updateAvailableOptions();
             
-            document.addEventListener('click', function closeAll(e) {
-                if(!card.contains(e.target)) {
-                    if(statusWidget && statusWidget.classList?.contains('custom-dropdown')) statusWidget.classList.remove('open');
-                    if(typeWidget && typeWidget.classList?.contains('custom-dropdown')) typeWidget.classList.remove('open');
-                }
-            });
+            document.addEventListener('click', function closeAll(e) { if(!card.contains(e.target)) { if(statusWidget && statusWidget.classList?.contains('custom-dropdown')) statusWidget.classList.remove('open'); if(typeWidget && typeWidget.classList?.contains('custom-dropdown')) typeWidget.classList.remove('open'); } });
             return card;
         }
         
-        function renderCategories() {
-            const allCats = [...new Set(families.flatMap(f=>f.categories||[]))].sort();
-            const nav = document.getElementById('navSections'); nav.innerHTML = allCats.map(c=>`<button class="nav-btn" data-cat="${c}">${c.replace(/\n/g,'<br>')}</button>`).join('');
-            const main = document.getElementById('mainContent'); main.innerHTML = '';
-            for(let cat of allCats) {
-                const familiesInCat = families.filter(f=>f.categories && f.categories.includes(cat));
-                const section = document.createElement('div'); section.id = `section-${cat}`; section.className = 'category-section mb-6 scroll-mt-24';
-                const title = document.createElement('div'); title.className = 'category-main-title'; title.innerText = cat; section.appendChild(title);
-                let hasAny = false;
-                for(let family of familiesInCat) {
-                    const familyProducts = products.filter(p=>p.family_id === family.id);
-                    if(!familyProducts.length) continue;
-                    hasAny = true;
-                    const familyDiv = document.createElement('div'); familyDiv.className = 'bg-[#0e1219] rounded-2xl shadow-xl overflow-hidden mb-4 border border-amber-500/10';
-                    const header = document.createElement('div'); header.className = 'family-header';
-                    const left = document.createElement('div'); left.className = 'flex items-center gap-2';
-                    left.innerHTML = `<img src="${family.image_url || 'https://via.placeholder.com/40'}" class="w-8 h-8 rounded-lg object-cover border border-amber-500/30" onerror="this.src='https://via.placeholder.com/40'"><h3 class="font-black text-sm text-amber-500">${escapeHtml(family.name)}</h3>`;
-                    const chevron = document.createElement('i'); chevron.className = 'fas fa-chevron-down text-amber-600 transition-transform text-sm';
-                    header.appendChild(left); header.appendChild(chevron);
-                    const productsContainer = document.createElement('div'); productsContainer.className = 'products-collapsible'; productsContainer.style.display = 'none';
-                    const grid = document.createElement('div'); grid.className = 'products-grid';
-                    productsContainer.appendChild(grid);
-                    familyDiv.appendChild(header); familyDiv.appendChild(productsContainer); section.appendChild(familyDiv);
-                    for(let prod of familyProducts) { const prodVariants = getProductVariants(prod.id); if(prodVariants.length===0) continue; const card = createProductCard(prod, prodVariants); grid.appendChild(card); }
-                    header.onclick = () => { const isVisible = productsContainer.style.display !== 'none'; productsContainer.style.display = isVisible ? 'none' : 'block'; chevron.classList.toggle('rotated', !isVisible); };
-                }
-                if(!hasAny) section.innerHTML += '<div class="empty-category">لا توجد منتجات حالياً</div>';
-                main.appendChild(section);
-            }
-            const sections = document.querySelectorAll('.category-section'); if(sections.length) { sections.forEach((s,i)=>s.style.display = i===0 ? 'block' : 'none'); document.querySelector('.nav-btn')?.classList.add('active'); }
-            document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.onclick = () => { const target = document.getElementById(`section-${btn.dataset.cat}`); if(target) { document.querySelectorAll('.category-section').forEach(s=>s.style.display='none'); target.style.display='block'; target.scrollIntoView({behavior:'smooth',block:'start'}); } document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }; });
-        }
-        
-        async function loadStoreData() {
-            if(!isOnline) { showToast("لا يوجد إنترنت - لا يمكن تحميل المتجر", true); return; }
-            try {
-                const [familiesRes, productsRes, variantsRes, settingsRes] = await Promise.all([
-                    supabase.from('product_families').select('*').order('name'),
-                    supabase.from('products').select('*, product_families(name)'),
-                    supabase.from('product_variants').select('*'),
-                    supabase.from('app_settings').select('key, value')
-                ]);
-                families = familiesRes.data || [];
-                products = productsRes.data || [];
-                variants = variantsRes.data || [];
-                if(settingsRes.data) settingsRes.data.forEach(row=>{ if(row.key==='delivery_fee') appSettings.delivery_fee=parseFloat(row.value)||0; if(row.key==='whatsapp_number') appSettings.whatsapp_number=row.value; });
-                localStorage.setItem('storeCache', JSON.stringify({families,products,variants,appSettings,timestamp:Date.now()}));
-                renderCategories();
-                showToast("تم تحميل المتجر", false);
-            } catch(err) { console.warn(err); showToast("فشل تحميل البيانات", true); }
-        }
-        
-        function addToCart(variantId, name, price, stock, status, type, qty) {
-            const existing = cart.find(i=>i.variantId===variantId);
-            if(existing) { if(existing.qty+qty > stock) { showToast(`لا يمكن إضافة أكثر من ${stock}`, true); return; } existing.qty += qty; }
-            else { cart.push({ variantId, name, price, qty, status, type, stock }); }
-            updateCartUI(); showToast(`تمت الإضافة: ${qty} × ${name} ${formatVariantLabel(status,type)}`, false);
-        }
+        function renderCategories() { const allCats = [...new Set(families.flatMap(f=>f.categories||[]))].sort(); const nav = document.getElementById('navSections'); nav.innerHTML = allCats.map(c=>`<button class="nav-btn" data-cat="${c}">${c.replace(/\n/g,'<br>')}</button>`).join(''); const main = document.getElementById('mainContent'); main.innerHTML = ''; for(let cat of allCats) { const familiesInCat = families.filter(f=>f.categories && f.categories.includes(cat)); const section = document.createElement('div'); section.id = `section-${cat}`; section.className = 'category-section mb-6 scroll-mt-24'; const title = document.createElement('div'); title.className = 'category-main-title'; title.innerText = cat; section.appendChild(title); let hasAny = false; for(let family of familiesInCat) { const familyProducts = products.filter(p=>p.family_id === family.id); if(!familyProducts.length) continue; hasAny = true; const familyDiv = document.createElement('div'); familyDiv.className = 'bg-[#0e1219] rounded-2xl shadow-xl overflow-hidden mb-4 border border-amber-500/10'; const header = document.createElement('div'); header.className = 'family-header'; const left = document.createElement('div'); left.className = 'flex items-center gap-2'; left.innerHTML = `<img src="${family.image_url || 'https://via.placeholder.com/40'}" class="w-8 h-8 rounded-lg object-cover border border-amber-500/30" onerror="this.src='https://via.placeholder.com/40'"><h3 class="font-black text-sm text-amber-500">${escapeHtml(family.name)}</h3>`; const chevron = document.createElement('i'); chevron.className = 'fas fa-chevron-down text-amber-600 transition-transform text-sm'; header.appendChild(left); header.appendChild(chevron); const productsContainer = document.createElement('div'); productsContainer.className = 'products-collapsible'; productsContainer.style.display = 'none'; const grid = document.createElement('div'); grid.className = 'products-grid'; productsContainer.appendChild(grid); familyDiv.appendChild(header); familyDiv.appendChild(productsContainer); section.appendChild(familyDiv); for(let prod of familyProducts) { const prodVariants = getProductVariants(prod.id); if(prodVariants.length===0) continue; const card = createProductCard(prod, prodVariants); grid.appendChild(card); } header.onclick = () => { const isVisible = productsContainer.style.display !== 'none'; productsContainer.style.display = isVisible ? 'none' : 'block'; chevron.classList.toggle('rotated', !isVisible); }; } if(!hasAny) section.innerHTML += '<div class="empty-category">لا توجد منتجات حالياً</div>'; main.appendChild(section); } const sections = document.querySelectorAll('.category-section'); if(sections.length) { sections.forEach((s,i)=>s.style.display = i===0 ? 'block' : 'none'); document.querySelector('.nav-btn')?.classList.add('active'); } document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.onclick = () => { const target = document.getElementById(`section-${btn.dataset.cat}`); if(target) { document.querySelectorAll('.category-section').forEach(s=>s.style.display='none'); target.style.display='block'; target.scrollIntoView({behavior:'smooth',block:'start'}); } document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }; }); }
+        async function loadStoreData() { if(!isOnline) { showToast("لا يوجد إنترنت - لا يمكن تحميل المتجر", true); return; } try { const [familiesRes, productsRes, variantsRes, settingsRes] = await Promise.all([ supabase.from('product_families').select('*').order('name'), supabase.from('products').select('*, product_families(name)'), supabase.from('product_variants').select('*'), supabase.from('app_settings').select('key, value') ]); families = familiesRes.data || []; products = productsRes.data || []; variants = variantsRes.data || []; if(settingsRes.data) settingsRes.data.forEach(row=>{ if(row.key==='delivery_fee') appSettings.delivery_fee=parseFloat(row.value)||0; if(row.key==='whatsapp_number') appSettings.whatsapp_number=row.value; }); localStorage.setItem('storeCache', JSON.stringify({families,products,variants,appSettings,timestamp:Date.now()})); renderCategories(); showToast("تم تحميل المتجر", false); } catch(err) { console.warn(err); showToast("فشل تحميل البيانات", true); } }
+        function addToCart(variantId, name, price, stock, status, type, qty) { const existing = cart.find(i=>i.variantId===variantId); if(existing) { if(existing.qty+qty > stock) { showToast(`لا يمكن إضافة أكثر من ${stock}`, true); return; } existing.qty += qty; } else { cart.push({ variantId, name, price, qty, status, type, stock }); } updateCartUI(); showToast(`تمت الإضافة: ${qty} × ${name} ${formatVariantLabel(status,type)}`, false); }
         function updateCartUI() { const total = cart.reduce((s,i)=>s+i.qty,0); document.getElementById('cartCount').innerText = total; if(document.getElementById('cartModal').classList.contains('opacity-100')) renderCartModal(); }
-        
-        async function renderCartModal() {
-            const container = document.getElementById('cartItemsList');
-            if(!cart.length) { container.innerHTML = '<div class="text-center text-gray-500 py-10"><i class="fas fa-shopping-bag text-4xl mb-2 opacity-40"></i><br>لمخلة خاوية</div>'; document.getElementById('cartSubtotal').innerText='0'; const fee=getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText=fee; document.getElementById('cartTotal').innerText=fee; updateSendButtonState(); return; }
-            let sub=0, html=''; cart.forEach((item,idx)=>{ let total=item.price*item.qty; sub+=total; const variantLabel=formatVariantLabel(item.status,item.type); html+=`<div class="bg-[#0e1219] rounded-xl p-3 border border-amber-500/10"><div class="flex justify-between items-center flex-wrap gap-2"><div><p class="font-bold text-white text-sm">${escapeHtml(item.name)}</p><p class="text-xs text-amber-500">${variantLabel}</p><p class="text-xs text-gray-400">${item.price} × ${item.qty}</p></div><div class="font-bold text-amber-500 text-sm">${total} أوقية</div><div class="flex gap-1"><button class="cart-inc w-7 h-7 rounded-full bg-gray-800 text-amber-500" data-idx="${idx}">+</button><span class="w-5 text-center text-white font-bold">${item.qty}</span><button class="cart-dec w-7 h-7 rounded-full bg-gray-800 text-amber-500" data-idx="${idx}">-</button><button class="cart-remove text-red-500 px-1" data-idx="${idx}"><i class="fas fa-trash"></i></button></div></div></div>`; });
-            container.innerHTML = html; document.getElementById('cartSubtotal').innerText=sub; const deliveryFee=getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText=deliveryFee; document.getElementById('cartTotal').innerText=sub; await refreshCustomerBalance(true); updateSendButtonState();
-            document.querySelectorAll('.cart-inc, .cart-dec, .cart-remove').forEach(btn=>{ btn.onclick = () => { let i=parseInt(btn.dataset.idx); if(btn.classList.contains('cart-inc')){ let variantData=variants.find(v=>v.id===cart[i].variantId); if(variantData && cart[i].qty<variantData.stock){ cart[i].qty++; updateCartUI(); renderCartModal(); } else showToast("الكمية القصوى", true); } else if(btn.classList.contains('cart-dec')){ if(cart[i].qty>1){ cart[i].qty--; updateCartUI(); renderCartModal(); } else { cart.splice(i,1); updateCartUI(); renderCartModal(); } } else { cart.splice(i,1); updateCartUI(); renderCartModal(); } }; });
-        }
-        
-        function toggleLocation() {
-            if(userLocation) {
-                userLocation=null; const btn=document.getElementById('locationToggleBtn'); btn.classList.remove('active'); btn.querySelector('span').innerText='تفعيل الموقع'; showToast("تم إلغاء تفعيل الموقع");
-            } else {
-                if(!navigator.geolocation) { showToast("جهازك لا يدعم الموقع", true); return; }
-                showToast("جاري طلب الموقع...");
-                navigator.geolocation.getCurrentPosition( position => {
-                    userLocation={ lat:position.coords.latitude, lng:position.coords.longitude };
-                    const btn=document.getElementById('locationToggleBtn'); btn.classList.add('active'); btn.querySelector('span').innerText='تم التفعيل'; showToast("تم تحديد موقع التوصيل");
-                    if(document.getElementById('cartModal').classList.contains('opacity-100')) renderCartModal();
-                }, error => { userLocation=null; const btn=document.getElementById('locationToggleBtn'); btn.classList.remove('active'); btn.querySelector('span').innerText='تفعيل الموقع'; showToast("السماح بالموقع ضروري", true); }, { enableHighAccuracy:true, timeout:10000 });
-            }
-        }
+        async function renderCartModal() { const container = document.getElementById('cartItemsList'); if(!cart.length) { container.innerHTML = '<div class="text-center text-gray-500 py-10"><i class="fas fa-shopping-bag text-4xl mb-2 opacity-40"></i><br>لمخلة خاوية</div>'; document.getElementById('cartSubtotal').innerText='0'; const fee=getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText=fee; document.getElementById('cartTotal').innerText=fee; updateSendButtonState(); return; } let sub=0, html=''; cart.forEach((item,idx)=>{ let total=item.price*item.qty; sub+=total; const variantLabel=formatVariantLabel(item.status,item.type); html+=`<div class="bg-[#0e1219] rounded-xl p-3 border border-amber-500/10"><div class="flex justify-between items-center flex-wrap gap-2"><div><p class="font-bold text-white text-sm">${escapeHtml(item.name)}</p><p class="text-xs text-amber-500">${variantLabel}</p><p class="text-xs text-gray-400">${item.price} × ${item.qty}</p></div><div class="font-bold text-amber-500 text-sm">${total} أوقية</div><div class="flex gap-1"><button class="cart-inc w-7 h-7 rounded-full bg-gray-800 text-amber-500" data-idx="${idx}">+</button><span class="w-5 text-center text-white font-bold">${item.qty}</span><button class="cart-dec w-7 h-7 rounded-full bg-gray-800 text-amber-500" data-idx="${idx}">-</button><button class="cart-remove text-red-500 px-1" data-idx="${idx}"><i class="fas fa-trash"></i></button></div></div></div>`; }); container.innerHTML = html; document.getElementById('cartSubtotal').innerText=sub; const deliveryFee=getDeliveryFee(); document.getElementById('deliveryFeeSpan').innerText=deliveryFee; document.getElementById('cartTotal').innerText=sub; await refreshCustomerBalance(true); updateSendButtonState(); document.querySelectorAll('.cart-inc, .cart-dec, .cart-remove').forEach(btn=>{ btn.onclick = () => { let i=parseInt(btn.dataset.idx); if(btn.classList.contains('cart-inc')){ let variantData=variants.find(v=>v.id===cart[i].variantId); if(variantData && cart[i].qty<variantData.stock){ cart[i].qty++; updateCartUI(); renderCartModal(); } else showToast("الكمية القصوى", true); } else if(btn.classList.contains('cart-dec')){ if(cart[i].qty>1){ cart[i].qty--; updateCartUI(); renderCartModal(); } else { cart.splice(i,1); updateCartUI(); renderCartModal(); } } else { cart.splice(i,1); updateCartUI(); renderCartModal(); } }; }); }
+        function toggleLocation() { if(userLocation) { userLocation=null; const btn=document.getElementById('locationToggleBtn'); btn.classList.remove('active'); btn.querySelector('span').innerText='تفعيل الموقع'; showToast("تم إلغاء تفعيل الموقع"); } else { if(!navigator.geolocation) { showToast("جهازك لا يدعم الموقع", true); return; } showToast("جاري طلب الموقع..."); navigator.geolocation.getCurrentPosition( position => { userLocation={ lat:position.coords.latitude, lng:position.coords.longitude }; const btn=document.getElementById('locationToggleBtn'); btn.classList.add('active'); btn.querySelector('span').innerText='تم التفعيل'; showToast("تم تحديد موقع التوصيل"); if(document.getElementById('cartModal').classList.contains('opacity-100')) renderCartModal(); }, error => { userLocation=null; const btn=document.getElementById('locationToggleBtn'); btn.classList.remove('active'); btn.querySelector('span').innerText='تفعيل الموقع'; showToast("السماح بالموقع ضروري", true); }, { enableHighAccuracy:true, timeout:10000 }); } }
         function getLocationLink() { return userLocation ? `https://www.google.com/maps?q=${userLocation.lat},${userLocation.lng}` : null; }
-        
-        async function sendOrder() {
-            if(!cart.length) { showToast("لمخلة خاوية", true); return; }
-            if(!currentCustomer) { showToast("يرجى تسجيل الدخول أولاً", true); return; }
-            if(!userLocation) { showToast("لا يمكن إرسال الطلب بدون تحديد الموقع.", true); return; }
-            if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت لإرسال الطلب", true); return; }
-            const deliveryFee=getDeliveryFee(); await refreshCustomerBalance(true);
-            if(currentCustomer.balance < deliveryFee) { showToast(`رصيدك (${currentCustomer.balance} أوقية) لا يكفي لتغطية رسوم التوصيل (${deliveryFee} أوقية)`, true); return; }
-            const subtotal=cart.reduce((s,i)=>s+(i.price*i.qty),0);
-            const orderDetails=cart.map(item=>({ variant_id:item.variantId, name:item.name, status:item.status, type:item.type, quantity:item.qty, price:item.price }));
-            const { data:order, error:orderError } = await supabase.from('orders').insert([{ customer_id:currentCustomer.id, total_amount:subtotal, delivery_fee:deliveryFee, final_amount:subtotal, paid_from_balance:0, order_details:orderDetails, status:'pending', location_link:getLocationLink(), delivery_fee_deducted:false }]).select().single();
-            if(orderError) { showToast("فشل حفظ الطلب", true); return; }
-            let msg = `🛒 *طلب جديد - مجمع المدينة*\n*رقم الطلب:* ${order.id.slice(0,8)}\n\n`;
-            cart.forEach(i=>{ let total=i.price*i.qty; const variantLabel=formatVariantLabel(i.status,i.type); msg+=`• ${i.name} ${variantLabel} × ${i.qty} = ${total} أوقية\n`; });
-            msg+=`●المجموع: ${subtotal} أوقية\n📍 *موقع التوصيل:* ${getLocationLink()}\n*الدفع عند استلام الطلب*`;
-            const encodedMsg=encodeURIComponent(msg); const phoneNumber=appSettings.whatsapp_number.replace(/[^0-9+]/g,'');
-            window.open(`https://wa.me/${phoneNumber}?text=${encodedMsg}`, '_blank');
-            cart=[]; updateCartUI(); renderCartModal(); showToast("تم إرسال الطلب بنجاح");
-        }
-        
-        async function startAppAfterLogin() {
-            document.getElementById('loginScreen').classList.remove('active');
-            document.getElementById('mainApp').classList.add('visible');
-            await refreshCustomerBalance(true);
-            await loadStoreData();
-            hideLoading();
-        }
-        
-        async function checkExistingSession() {
-            if(!isOnline) { hideLoading(); document.getElementById('loginScreen').classList.add('active'); document.getElementById('offlineLoginMsg').style.display='block'; return false; }
-            const stored=localStorage.getItem('customer');
-            if(stored) {
-                try {
-                    currentCustomer=JSON.parse(stored);
-                    const { data, error } = await supabase.from('customers').select('id, balance').eq('id', currentCustomer.id).single();
-                    if(!error && data) currentCustomer.balance=data.balance;
-                    await startAppAfterLogin();
-                    return true;
-                } catch(e){}
-            }
-            hideLoading(); document.getElementById('loginScreen').classList.add('active'); return false;
-        }
-        
-        function toggleMode() {
-            isLoginMode=!isLoginMode;
-            const btn=document.getElementById('loginActionBtn'), switchText=document.getElementById('switchModeBtn'), confirmGroup=document.getElementById('confirmPinGroup');
-            if(isLoginMode) { btn.innerHTML='تسجيل الدخول'; switchText.innerHTML='ليس لديك حساب؟ إنشاء حساب جديد'; confirmGroup.style.display='none'; }
-            else { btn.innerHTML='إنشاء حساب'; switchText.innerHTML='لديك حساب؟ تسجيل الدخول'; confirmGroup.style.display='block'; }
-            clearPins();
-        }
-        
+        async function sendOrder() { if(!cart.length) { showToast("لمخلة خاوية", true); return; } if(!currentCustomer) { showToast("يرجى تسجيل الدخول أولاً", true); return; } if(!userLocation) { showToast("لا يمكن إرسال الطلب بدون تحديد الموقع.", true); return; } if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت لإرسال الطلب", true); return; } const deliveryFee=getDeliveryFee(); await refreshCustomerBalance(true); if(currentCustomer.balance < deliveryFee) { showToast(`رصيدك (${currentCustomer.balance} أوقية) لا يكفي لتغطية رسوم التوصيل (${deliveryFee} أوقية)`, true); return; } const subtotal=cart.reduce((s,i)=>s+(i.price*i.qty),0); const orderDetails=cart.map(item=>({ variant_id:item.variantId, name:item.name, status:item.status, type:item.type, quantity:item.qty, price:item.price })); const { data:order, error:orderError } = await supabase.from('orders').insert([{ customer_id:currentCustomer.id, total_amount:subtotal, delivery_fee:deliveryFee, final_amount:subtotal, paid_from_balance:0, order_details:orderDetails, status:'pending', location_link:getLocationLink(), delivery_fee_deducted:false }]).select().single(); if(orderError) { showToast("فشل حفظ الطلب", true); return; } let msg = `🛒 *طلب جديد - مجمع المدينة*\n*رقم الطلب:* ${order.id.slice(0,8)}\n\n`; cart.forEach(i=>{ let total=i.price*i.qty; const variantLabel=formatVariantLabel(i.status,i.type); msg+=`• ${i.name} ${variantLabel} × ${i.qty} = ${total} أوقية\n`; }); msg+=`●المجموع: ${subtotal} أوقية\n📍 *موقع التوصيل:* ${getLocationLink()}\n*الدفع عند استلام الطلب*`; const encodedMsg=encodeURIComponent(msg); const phoneNumber=appSettings.whatsapp_number.replace(/[^0-9+]/g,''); window.open(`https://wa.me/${phoneNumber}?text=${encodedMsg}`, '_blank'); cart=[]; updateCartUI(); renderCartModal(); showToast("تم إرسال الطلب بنجاح"); }
+        async function startAppAfterLogin() { document.getElementById('loginScreen').classList.remove('active'); document.getElementById('mainApp').classList.add('visible'); await refreshCustomerBalance(true); await loadStoreData(); updateSettingsDropdown(); hideLoading(); }
+        async function checkExistingSession() { if(!isOnline) { hideLoading(); document.getElementById('loginScreen').classList.add('active'); document.getElementById('offlineLoginMsg').style.display='block'; return false; } const stored=localStorage.getItem('customer'); if(stored) { try { currentCustomer=JSON.parse(stored); const { data, error } = await supabase.from('customers').select('id, balance').eq('id', currentCustomer.id).single(); if(!error && data) currentCustomer.balance=data.balance; await startAppAfterLogin(); return true; } catch(e){} } hideLoading(); document.getElementById('loginScreen').classList.add('active'); return false; }
+        function toggleMode() { isLoginMode=!isLoginMode; const btn=document.getElementById('loginActionBtn'), switchText=document.getElementById('switchModeBtn'), confirmGroup=document.getElementById('confirmPinGroup'); if(isLoginMode) { btn.innerHTML='تسجيل الدخول'; switchText.innerHTML='ليس لديك حساب؟ إنشاء حساب جديد'; confirmGroup.style.display='none'; } else { btn.innerHTML='إنشاء حساب'; switchText.innerHTML='لديك حساب؟ تسجيل الدخول'; confirmGroup.style.display='block'; } clearPins(); }
         function bindEvents() {
             document.getElementById('cartBtn').onclick = async () => { await refreshCustomerBalance(true); renderCartModal(); document.getElementById('cartModal').classList.remove('invisible','opacity-0'); };
             document.getElementById('closeCartModal').onclick = () => document.getElementById('cartModal').classList.add('invisible','opacity-0');
             document.getElementById('sendWhatsAppBtn').onclick = sendOrder;
             window.onclick = e => { if(e.target===document.getElementById('cartModal')) document.getElementById('closeCartModal').click(); };
             document.getElementById('locationToggleBtn').onclick = toggleLocation;
-            document.getElementById('logoutMainBtn').onclick = logout;
-            document.getElementById('loginActionBtn').onclick = async () => {
-                if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return; }
-                const phone=document.getElementById('loginPhone').value.trim();
-                const code=getPinCode();
-                if(!phone || code.length!==4) { showToast("أدخل رقم الهاتف و الرمز السري ", true); clearPins(); return; }
-                if(isLoginMode) { let success=await login(phone,code); if(success) await startAppAfterLogin(); else clearPins(); }
-                else { const confirmCode=getConfirmPinCode(); if(confirmCode.length!==4) { showToast("يرجى تأكيد الرمز السري", true); return; } let success=await register(phone,code,confirmCode); if(success) await startAppAfterLogin(); else clearPins(); }
-            };
+            document.getElementById('loginActionBtn').onclick = async () => { if(!isOnline) { showToast("لا يوجد اتصال بالإنترنت", true); return; } const phone=document.getElementById('loginPhone').value.trim(); const code=getPinCode(); if(!phone || code.length!==4) { showToast("أدخل رقم الهاتف و الرمز السري ", true); clearPins(); return; } if(isLoginMode) { let success=await login(phone,code); if(success) await startAppAfterLogin(); else clearPins(); } else { const confirmCode=getConfirmPinCode(); if(confirmCode.length!==4) { showToast("يرجى تأكيد الرمز السري", true); return; } let success=await register(phone,code,confirmCode); if(success) await startAppAfterLogin(); else clearPins(); } };
             document.getElementById('switchModeBtn').onclick = toggleMode;
+            
+            const settingsBtn = document.getElementById('settingsBtn');
+            const settingsDropdown = document.getElementById('settingsDropdown');
+            const logoutSettingsBtn = document.getElementById('logoutSettingsBtn');
+            
+            settingsBtn.onclick = (e) => { e.stopPropagation(); settingsDropdown.classList.toggle('show'); settingsBtn.classList.toggle('settings-btn-active'); };
+            logoutSettingsBtn.onclick = () => { logout(); settingsDropdown.classList.remove('show'); settingsBtn.classList.remove('settings-btn-active'); };
+            document.addEventListener('click', (e) => { if(!settingsBtn.contains(e.target) && !settingsDropdown.contains(e.target)) { settingsDropdown.classList.remove('show'); settingsBtn.classList.remove('settings-btn-active'); } });
         }
         
-        let deferredPrompt; window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt=e; const btn=document.getElementById('installBtn'); btn.style.display='flex'; btn.onclick=async ()=>{ btn.style.display='none'; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; }; });
+        let deferredPrompt; window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt=e; const btn=document.getElementById('installBtn'); if(btn) { btn.style.display='flex'; btn.onclick=async ()=>{ btn.style.display='none'; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; }; } });
         if('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(e=>console.warn("SW registration failed", e)); }
         setupPinAutoFocus(); bindEvents(); checkExistingSession();
     })();
